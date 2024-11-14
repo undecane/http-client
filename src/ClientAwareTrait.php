@@ -46,6 +46,8 @@ trait ClientAwareTrait
     abstract public function createClient();
 
     /**
+     * @param mixed $uri
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function request(string $method, $uri, array $options = [])
@@ -55,6 +57,8 @@ trait ClientAwareTrait
     }
 
     /**
+     * @param mixed $uri
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function requestAsync(string $method, $uri, array $options = [])
