@@ -3,9 +3,6 @@
 namespace Zing\HttpClient;
 
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\ClientTrait;
-use GuzzleHttp\Promise\PromiseInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Basic Implementation of ClientAwareInterface.
@@ -21,7 +18,6 @@ trait ClientAwareTrait
 
     /**
      * Sets a client.
-     * @return void
      */
     public function setClient(ClientInterface $client)
     {
@@ -30,7 +26,8 @@ trait ClientAwareTrait
 
     /**
      * Get the client instance.
-     * @return ClientInterface
+     *
+     * @return \GuzzleHttp\ClientInterface
      */
     public function getClient()
     {
@@ -43,16 +40,13 @@ trait ClientAwareTrait
 
     /**
      * Create the client instance.
-     * @return ClientInterface
+     *
+     * @return \GuzzleHttp\ClientInterface
      */
     abstract public function createClient();
 
     /**
-     * @param string $method
-     * @param $uri
-     * @param array $options
-     * @return ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function request(string $method, $uri, array $options = [])
     {
@@ -61,14 +55,131 @@ trait ClientAwareTrait
     }
 
     /**
-     * @param string $method
-     * @param $uri
-     * @param array $options
-     * @return PromiseInterface
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function requestAsync(string $method, $uri, array $options = [])
     {
         return $this->getClient()
             ->requestAsync($method, $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function get($uri, array $options = [])
+    {
+        return $this->request('GET', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function head($uri, array $options = [])
+    {
+        return $this->request('HEAD', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function put($uri, array $options = [])
+    {
+        return $this->request('PUT', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function post($uri, array $options = [])
+    {
+        return $this->request('POST', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function patch($uri, array $options = [])
+    {
+        return $this->request('PATCH', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function delete($uri, array $options = [])
+    {
+        return $this->request('DELETE', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAsync($uri, array $options = [])
+    {
+        return $this->requestAsync('GET', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function headAsync($uri, array $options = [])
+    {
+        return $this->requestAsync('HEAD', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putAsync($uri, array $options = [])
+    {
+        return $this->requestAsync('PUT', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAsync($uri, array $options = [])
+    {
+        return $this->requestAsync('POST', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchAsync($uri, array $options = [])
+    {
+        return $this->requestAsync('PATCH', $uri, $options);
+    }
+
+    /**
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteAsync($uri, array $options = [])
+    {
+        return $this->requestAsync('DELETE', $uri, $options);
     }
 }
