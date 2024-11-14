@@ -12,8 +12,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 trait ClientAwareTrait
 {
-    use ClientTrait;
-
     /**
      * The client instance.
      *
