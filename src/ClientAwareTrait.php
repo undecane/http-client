@@ -23,16 +23,18 @@ trait ClientAwareTrait
 
     /**
      * Sets a client.
+     * @return void
      */
-    public function setClient(ClientInterface $client): void
+    public function setClient(ClientInterface $client)
     {
         $this->client = $client;
     }
 
     /**
      * Get the client instance.
+     * @return ClientInterface
      */
-    public function getClient(): ClientInterface
+    public function getClient()
     {
         if (! $this->client instanceof ClientInterface) {
             $this->client = $this->createClient();
@@ -43,16 +45,30 @@ trait ClientAwareTrait
 
     /**
      * Create the client instance.
+     * @return ClientInterface
      */
-    abstract public function createClient(): ClientInterface;
+    abstract public function createClient();
 
-    public function request(string $method, $uri, array $options = []): ResponseInterface
+    /**
+     * @param string $method
+     * @param $uri
+     * @param array $options
+     * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function request(string $method, $uri, array $options = [])
     {
         return $this->getClient()
             ->request($method, $uri, $options);
     }
 
-    public function requestAsync(string $method, $uri, array $options = []): PromiseInterface
+    /**
+     * @param string $method
+     * @param $uri
+     * @param array $options
+     * @return PromiseInterface
+     */
+    public function requestAsync(string $method, $uri, array $options = [])
     {
         return $this->getClient()
             ->requestAsync($method, $uri, $options);

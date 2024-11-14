@@ -11,7 +11,10 @@ class SimpleClient implements ClientAwareInterface
 {
     use ClientAwareTrait;
 
-    public function createClient(): ClientInterface
+    /**
+     * @return ClientInterface
+     */
+    public function createClient()
     {
         return new Client();
     }

@@ -11,16 +11,19 @@ interface ClientAwareInterface
 {
     /**
      * Sets a client instance on the object.
+     * @return void
      */
-    public function setClient(ClientInterface $client): void;
+    public function setClient(ClientInterface $client);
 
     /**
      * Get the client instance.
+     * @return ClientInterface
      */
-    public function getClient(): ClientInterface;
+    public function getClient();
 
     /**
      * Create the client instance.
+     * @return ClientInterface
      */
-    public function createClient(): ClientInterface;
+    public function createClient();
 }
