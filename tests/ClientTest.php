@@ -10,6 +10,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * @internal
@@ -251,5 +252,20 @@ final class ClientTest extends TestCase
         $simpleClient->setMessageFormatter(new MessageFormatter('{target} {code}'));
         $simpleClient->setLogger($mock);
         $simpleClient->get('test-path');
+    }
+
+    /**
+     * @phpstan-return void
+     */
+    public function testSetCache()
+    {
+        $mock = $this->getMockBuilder(CacheInterface::class)->getMock();
+        $mock->expects($this->once())
+            ->method('set')
+            ->with('token', 'value', 60)
+            ->willReturn(true);
+        $simpleClient = new SimpleClient();
+        $simpleClient->setCache($mock);
+        $simpleClient->getToken();
     }
 }

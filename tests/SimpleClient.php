@@ -8,13 +8,16 @@ use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Zing\HttpClient\CacheAwareInterface;
+use Zing\HttpClient\CacheAwareTrait;
 use Zing\HttpClient\ClientAwareInterface;
 use Zing\HttpClient\ClientAwareTrait;
 use Zing\HttpClient\MessageFormatterAwareInterface;
 use Zing\HttpClient\MessageFormatterAwareTrait;
 
-class SimpleClient implements ClientAwareInterface, LoggerAwareInterface, MessageFormatterAwareInterface
+class SimpleClient implements ClientAwareInterface, LoggerAwareInterface, MessageFormatterAwareInterface, CacheAwareInterface
 {
+    use CacheAwareTrait;
     use ClientAwareTrait;
     use LoggerAwareTrait;
     use MessageFormatterAwareTrait;
@@ -51,5 +54,15 @@ class SimpleClient implements ClientAwareInterface, LoggerAwareInterface, Messag
             'base_uri' => 'https://example.com/',
             'handler' => $handlerStack,
         ]);
+    }
+
+    /**
+     * @phpstan-return void
+     */
+    public function getToken()
+    {
+        if ($this->cache) {
+            $this->cache->set('token', 'value', 60);
+        }
     }
 }
