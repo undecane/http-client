@@ -5,6 +5,7 @@ namespace Zing\HttpClient\Tests;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -226,6 +227,28 @@ final class ClientTest extends TestCase
                 'handler' => $handlerStack,
             ],
         ]);
+        $simpleClient->setLogger($mock);
+        $simpleClient->get('test-path');
+    }
+
+    /**
+     * @phpstan-return void
+     */
+    public function testSetMessageFormatter()
+    {
+        $mock = $this->getMockBuilder(LoggerInterface::class)->getMock();
+        $mock->expects($this->once())
+            ->method('log')
+            ->with('info', '/test-path 200')
+            ->willReturn(null);
+        $mockHandler = new MockHandler([new Response()]);
+        $handlerStack = $mockHandler;
+        $simpleClient = new SimpleClient([
+            'http' => [
+                'handler' => $handlerStack,
+            ],
+        ]);
+        $simpleClient->setMessageFormatter(new MessageFormatter('{target} {code}'));
         $simpleClient->setLogger($mock);
         $simpleClient->get('test-path');
     }
