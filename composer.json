@@ -1,7 +1,7 @@
 {
     "name": "zing/http-client",
-    "description": "A PSR simple caching interface implementation that routes to the Yii caching",
-    "keywords": ["yii2", "psr", "caching", "cache"],
+    "description": "Simple interfaces for building HTTP client to fetch HTTP resources",
+    "keywords": ["http", "http-client"],
     "license": "MIT",
     "homepage": "https://github.com/zingimmick/http-client",
     "support": {
@@ -19,8 +19,7 @@
         "sort-packages": true,
         "preferred-install": "dist",
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "yiisoft/yii2-composer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "require": {
@@ -34,12 +33,6 @@
         "phpunit/phpunit": "^4.8 || ^6.5 || ^7.5 || ^8.5 || ^9.3.3 || ^10.0 || ^11.0",
         "zing/coding-standard": "^6.4 || ^7.0"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Zing\\HttpClient\\": "src"
