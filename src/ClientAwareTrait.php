@@ -54,7 +54,7 @@ trait ClientAwareTrait
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function request( $method, $uri, array $options = [])
+    public function request($method, $uri, array $options = [])
     {
         return $this->getClient()
             ->request($method, $uri, $options);
@@ -67,7 +67,7 @@ trait ClientAwareTrait
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function requestAsync( $method, $uri, array $options = [])
+    public function requestAsync($method, $uri, array $options = [])
     {
         return $this->getClient()
             ->requestAsync($method, $uri, $options);
