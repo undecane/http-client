@@ -4,8 +4,14 @@ namespace Zing\HttpClient\Tests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @internal
@@ -204,5 +210,24 @@ final class ClientTest extends TestCase
     {
         $simpleClient = $this->createSimpleClient('PUT', 'test-path');
         $simpleClient->put('test-path');
+    }
+
+    public function testSetLogger()
+    {
+        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
+        $logger->expects($this->once())->method('log')->with('info','/test-path')->willReturn(null);
+        $mock = new MockHandler([
+            new Response(200, ['X-Foo' => 'Bar'], 'Hello, World'),
+            new Response(202, ['Content-Length' => 0]),
+            new RequestException('Error Communicating with Server', new Request('GET', 'test'))
+        ]);
+        $handler = HandlerStack::create($mock);
+        $simpleClient = new SimpleClient([
+            'http'=>[
+                'handler' => $handler,
+            ]
+        ]);
+        $simpleClient->setLogger($logger);
+        $simpleClient->get('test-path');
     }
 }
