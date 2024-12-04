@@ -16,6 +16,7 @@ return static function (ECSConfig $ecsConfig): void {
         \SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff::class,
         \SlevomatCodingStandard\Sniffs\Classes\SuperfluousInterfaceNamingSniff::class,
         \SlevomatCodingStandard\Sniffs\Classes\SuperfluousTraitNamingSniff::class,
+        \PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer::class => [__DIR__ . '/tests/TestCase.php'],
     ]);
     $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/ecs.php', __DIR__ . '/rector.php']);
 };

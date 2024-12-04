@@ -18,6 +18,8 @@ trait ClientAwareTrait
 
     /**
      * Sets a client.
+     *
+     * @phpstan-return void
      */
     public function setClient(ClientInterface $client)
     {
@@ -46,7 +48,8 @@ trait ClientAwareTrait
     abstract public function createClient();
 
     /**
-     * @param mixed $uri
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -57,7 +60,8 @@ trait ClientAwareTrait
     }
 
     /**
-     * @param mixed $uri
+     * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -69,6 +73,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -79,6 +84,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -89,6 +95,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -99,6 +106,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -109,6 +117,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -119,6 +128,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -129,6 +139,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -139,6 +150,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -149,6 +161,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -159,6 +172,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -169,6 +183,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -179,6 +194,7 @@ trait ClientAwareTrait
 
     /**
      * @param string|\Psr\Http\Message\UriInterface $uri
+     * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */

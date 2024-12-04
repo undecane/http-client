@@ -11,6 +11,8 @@ interface ClientAwareInterface
 {
     /**
      * Sets a client instance on the object.
+     *
+     * @phpstan-return void
      */
     public function setClient(ClientInterface $client);
 

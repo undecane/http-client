@@ -7,6 +7,9 @@ namespace Zing\HttpClient\Tests;
  */
 final class ClientTest extends TestCase
 {
+    /**
+     * @phpstan-return void
+     */
     public function testCreateClient()
     {
         $simpleClient = new SimpleClient();
