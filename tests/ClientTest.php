@@ -11,11 +11,12 @@ use GuzzleHttp\Promise\PromiseInterface;
 final class ClientTest extends TestCase
 {
     /**
+     * @param string $method
      * @param mixed $uri
      *
      * @return SimpleClient
      */
-    protected function createSimpleClientForAsync(string $method, $uri)
+    protected function createSimpleClientForAsync( $method, $uri)
     {
 
         $client = $this->createMock(Client::class);

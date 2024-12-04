@@ -48,24 +48,26 @@ trait ClientAwareTrait
     abstract public function createClient();
 
     /**
+     * @param string $method
      * @param string|\Psr\Http\Message\UriInterface $uri
      * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function request(string $method, $uri, array $options = [])
+    public function request( $method, $uri, array $options = [])
     {
         return $this->getClient()
             ->request($method, $uri, $options);
     }
 
     /**
+     * @param string $method
      * @param string|\Psr\Http\Message\UriInterface $uri
      * @param array<\Zing\HttpClient\RequestOptions::*, mixed> $options request options to apply
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function requestAsync(string $method, $uri, array $options = [])
+    public function requestAsync( $method, $uri, array $options = [])
     {
         return $this->getClient()
             ->requestAsync($method, $uri, $options);
