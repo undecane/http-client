@@ -19,8 +19,8 @@ final class ClientTest extends TestCase
     protected function createSimpleClientForAsync( $method, $uri)
     {
 
-        $client = $this->createMock(Client::class);
-        $promise = $this->createMock(PromiseInterface::class);
+        $client = $this->getMockBuilder(Client::class)->getMock();
+        $promise = $this->getMockBuilder(PromiseInterface::class)->getMock();
         $client->expects($this->once())->method('requestAsync')->with($method, $uri)->willReturn($promise);
         $simpleClient = new SimpleClient();
         $simpleClient->setClient($client);
