@@ -16,6 +16,9 @@ class SimpleClient implements ClientAwareInterface, LoggerAwareInterface
     use ClientAwareTrait;
     use LoggerAwareTrait;
 
+    /**
+     * @var array<string, mixed>
+     */
     private $config;
 
     /**
@@ -31,13 +34,16 @@ class SimpleClient implements ClientAwareInterface, LoggerAwareInterface
      */
     public function createClient()
     {
-        $handler = HandlerStack::create(isset($this->config['http']['handler']) ? $this->config['http']['handler'] : null);
+        $handlerStack = HandlerStack::create(
+            isset($this->config['http']['handler']) ? $this->config['http']['handler'] : null
+        );
         if ($this->logger) {
-            $handler->push(Middleware::log($this->logger, new MessageFormatter("{target}")), 'log');
+            $handlerStack->push(Middleware::log($this->logger, new MessageFormatter('{target}')), 'log');
         }
-        return new Client(array_merge([
+
+        return new Client([
             'base_uri' => 'https://example.com/',
-            'handler' => $handler,
-        ]));
+            'handler' => $handlerStack,
+        ]);
     }
 }

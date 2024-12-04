@@ -4,11 +4,8 @@ namespace Zing\HttpClient\Tests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -212,22 +209,24 @@ final class ClientTest extends TestCase
         $simpleClient->put('test-path');
     }
 
+    /**
+     * @phpstan-return void
+     */
     public function testSetLogger()
     {
-        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
-        $logger->expects($this->once())->method('log')->with('info','/test-path')->willReturn(null);
-        $mock = new MockHandler([
-            new Response(200, ['X-Foo' => 'Bar'], 'Hello, World'),
-            new Response(202, ['Content-Length' => 0]),
-            new RequestException('Error Communicating with Server', new Request('GET', 'test'))
-        ]);
-        $handler = HandlerStack::create($mock);
+        $mock = $this->getMockBuilder(LoggerInterface::class)->getMock();
+        $mock->expects($this->once())
+            ->method('log')
+            ->with('info', '/test-path')
+            ->willReturn(null);
+        $mockHandler = new MockHandler([new Response()]);
+        $handlerStack = $mockHandler;
         $simpleClient = new SimpleClient([
-            'http'=>[
-                'handler' => $handler,
-            ]
+            'http' => [
+                'handler' => $handlerStack,
+            ],
         ]);
-        $simpleClient->setLogger($logger);
+        $simpleClient->setLogger($mock);
         $simpleClient->get('test-path');
     }
 }

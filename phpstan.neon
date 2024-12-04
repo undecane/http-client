@@ -7,3 +7,5 @@ parameters:
         - src
         - tests
     ignoreErrors:
+        - "#Cannot access offset 'handler' on mixed.#"
+        - '#Parameter \#1 \$handler of static method GuzzleHttp\\HandlerStack::create\(\) expects \(callable\(Psr\\Http\\Message\\RequestInterface, array\): GuzzleHttp\\Promise\\PromiseInterface\)\|null, mixed given.#'
