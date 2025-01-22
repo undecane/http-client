@@ -30,7 +30,7 @@ class RecordFormatter implements RecordFormatterInterface
      *
      * @return array<string, mixed>
      */
-    public function format($request, $response = null, $throwable = null)
+    public function format(RequestInterface $request, $response = null, $throwable = null)
     {
         $cache = [];
 
@@ -48,14 +48,13 @@ class RecordFormatter implements RecordFormatterInterface
     }
 
     /**
+     * @param \Psr\Http\Message\ResponseInterface|null $response Response that was received
+     * @param \Throwable|null $throwable
+     *
      * @return mixed
      */
-    protected function resolve(
-        string $column,
-        RequestInterface $request,
-        ?ResponseInterface $response = null,
-        ?\Throwable $throwable = null
-    ) {
+    protected function resolve(string $column, RequestInterface $request, $response = null, $throwable = null)
+    {
         $result = '';
 
         switch ($column) {

@@ -2,6 +2,8 @@
 
 namespace Zing\HttpClient;
 
+use Psr\Http\Message\RequestInterface;
+
 interface RecordFormatterInterface
 {
     /**
@@ -11,5 +13,5 @@ interface RecordFormatterInterface
      *
      * @return array<string, mixed>
      */
-    public function format($request, $response = null, $throwable = null);
+    public function format(RequestInterface $request, $response = null, $throwable = null);
 }

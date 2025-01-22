@@ -24,12 +24,11 @@ trait RecorderAwareTrait
     /**
      * Sets a recorder and record formatter.
      *
-     * @param \Zing\HttpClient\Recorder $recorder
      * @param \Zing\HttpClient\RecordFormatter|null $recordFormatter
      *
      * @phpstan-return void
      */
-    public function setRecorder($recorder, $recordFormatter = null)
+    public function setRecorder(Recorder $recorder, $recordFormatter = null)
     {
         $this->recorder = $recorder;
         if ($recordFormatter !== null) {
