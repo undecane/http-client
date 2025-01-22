@@ -3,6 +3,7 @@
 namespace Zing\HttpClient;
 
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise;
 
 class RecordMiddleware
 {
@@ -37,13 +38,17 @@ class RecordMiddleware
                         return $response;
                     },
                     function ($reason) use ($request) {
-                        $response = $reason instanceof RequestException
-                            ? $reason->getResponse()
-                            : null;
-                        $message = $this->recordFormatter->format($request, $response, $reason);
+                        $response = $reason instanceof RequestException ? $reason->getResponse() : null;
+                        $message = $this->recordFormatter->format(
+                            $request,
+                            $response,
+                            \function_exists('GuzzleHttp\Promise\exception_for')
+                            ? Promise\exception_for($reason) : Promise\Create::exceptionFor($reason)
+                        );
                         $this->recorder->record($message);
 
-                        return \GuzzleHttp\Promise\rejection_for($reason);
+                        return \function_exists('GuzzleHttp\Promise\rejection_for')
+                        ? Promise\rejection_for($reason) : Promise\Create::rejectionFor($reason);
                     }
                 );
         };
