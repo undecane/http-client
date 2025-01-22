@@ -17,6 +17,7 @@ return static function (ECSConfig $ecsConfig): void {
         \SlevomatCodingStandard\Sniffs\Classes\SuperfluousInterfaceNamingSniff::class,
         \SlevomatCodingStandard\Sniffs\Classes\SuperfluousTraitNamingSniff::class,
         \PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer::class => [__DIR__ . '/tests/TestCase.php'],
+        \PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\LongConditionClosingCommentSniff::class,
     ]);
     $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/ecs.php', __DIR__ . '/rector.php']);
 };

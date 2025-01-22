@@ -14,13 +14,18 @@ use Zing\HttpClient\ClientAwareInterface;
 use Zing\HttpClient\ClientAwareTrait;
 use Zing\HttpClient\MessageFormatterAwareInterface;
 use Zing\HttpClient\MessageFormatterAwareTrait;
+use Zing\HttpClient\RecorderAwareInterface;
+use Zing\HttpClient\RecorderAwareTrait;
+use Zing\HttpClient\RecordFormatter;
+use Zing\HttpClient\RecordMiddleware;
 
-class SimpleClient implements ClientAwareInterface, LoggerAwareInterface, MessageFormatterAwareInterface, CacheAwareInterface
+class SimpleClient implements ClientAwareInterface, LoggerAwareInterface, MessageFormatterAwareInterface, RecorderAwareInterface, CacheAwareInterface
 {
     use CacheAwareTrait;
     use ClientAwareTrait;
     use LoggerAwareTrait;
     use MessageFormatterAwareTrait;
+    use RecorderAwareTrait;
 
     /**
      * @var array<string, mixed>
@@ -47,6 +52,13 @@ class SimpleClient implements ClientAwareInterface, LoggerAwareInterface, Messag
             $handlerStack->push(
                 Middleware::log($this->logger, $this->messageFormatter ?: new MessageFormatter('{target}')),
                 'log'
+            );
+        }
+
+        if ($this->recorder) {
+            $handlerStack->push(
+                new RecordMiddleware($this->recorder, $this->recordFormatter ?: new RecordFormatter(['path'])),
+                'record'
             );
         }
 

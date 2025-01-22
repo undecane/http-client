@@ -11,6 +11,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
+use Zing\HttpClient\Recorder;
 
 /**
  * @internal
@@ -267,5 +268,27 @@ final class ClientTest extends TestCase
         $simpleClient = new SimpleClient();
         $simpleClient->setCache($mock);
         $simpleClient->getToken();
+    }
+
+    /**
+     * @phpstan-return void
+     */
+    public function testSetRecorder()
+    {
+        $mock = $this->getMockBuilder(Recorder::class)->getMock();
+        $mock->expects($this->once())
+            ->method('record')
+            ->with([
+                'path' => '/test-path',
+            ]);
+        $mockHandler = new MockHandler([new Response()]);
+        $handlerStack = $mockHandler;
+        $simpleClient = new SimpleClient([
+            'http' => [
+                'handler' => $handlerStack,
+            ],
+        ]);
+        $simpleClient->setRecorder($mock);
+        $simpleClient->get('test-path');
     }
 }
