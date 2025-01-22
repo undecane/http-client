@@ -48,12 +48,13 @@ class RecordFormatter implements RecordFormatterInterface
     }
 
     /**
+     * @param string $column
      * @param \Psr\Http\Message\ResponseInterface|null $response Response that was received
      * @param \Throwable|null $throwable
      *
      * @return mixed
      */
-    protected function resolve(string $column, RequestInterface $request, $response = null, $throwable = null)
+    protected function resolve($column, RequestInterface $request, $response = null, $throwable = null)
     {
         $result = '';
 
