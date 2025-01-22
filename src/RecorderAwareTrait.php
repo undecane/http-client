@@ -25,7 +25,7 @@ trait RecorderAwareTrait
      * Sets a recorder and record formatter.
      *
      * @param \Zing\HttpClient\Recorder $recorder
-     * @param \Zing\HttpClient\RecordFormatter $recordFormatter
+     * @param \Zing\HttpClient\RecordFormatter|null $recordFormatter
      *
      * @phpstan-return void
      */

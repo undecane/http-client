@@ -25,15 +25,13 @@ class RecordFormatter implements RecordFormatterInterface
      * Returns a formatted record.
      *
      * @param \Psr\Http\Message\RequestInterface $request Request that was sent
-     * @param \Psr\Http\Message\ResponseInterface $response Response that was received
+     * @param \Psr\Http\Message\ResponseInterface|null $response Response that was received
+     * @param \Throwable|null $throwable
      *
      * @return array<string, mixed>
      */
-    public function format(
-        RequestInterface $request,
-        ?ResponseInterface $response = null,
-        ?\Throwable $throwable = null
-    ) {
+    public function format($request, $response = null, $throwable = null)
+    {
         $cache = [];
 
         foreach ($this->attributes as $attribute) {
