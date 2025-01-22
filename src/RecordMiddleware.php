@@ -4,8 +4,6 @@ namespace Zing\HttpClient;
 
 use GuzzleHttp\Exception\RequestException;
 
-use function GuzzleHttp\Promise\rejection_for;
-
 class RecordMiddleware
 {
     /**
@@ -45,7 +43,7 @@ class RecordMiddleware
                         $message = $this->recordFormatter->format($request, $response, $reason);
                         $this->recorder->record($message);
 
-                        return rejection_for($reason);
+                        return \GuzzleHttp\Promise\rejection_for($reason);
                     }
                 );
         };

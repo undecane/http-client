@@ -111,7 +111,7 @@ class RecordFormatter implements RecordFormatterInterface
         $data = [
             'body' => (string) $message->getBody(),
         ];
-        $contentType = $message->getHeader('Content-Type')[0] ?? '';
+        $contentType = isset($message->getHeader('Content-Type')[0]) ? $message->getHeader('Content-Type')[0] : '';
         if (str_contains($contentType, 'json')) {
             $contents = $data['body'];
             $result = json_decode($contents, true);
